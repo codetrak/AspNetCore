@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AspNetCore.API.Services;
+using AspNetCore.API.Services.ControllerHelpers;
 using AspNetCore.Data.Context;
+using AspNetCore.Domain.Entities;
+using AspNetCore.Infrastructure.Repositories;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +23,19 @@ namespace AspNetCore.API
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+
+            services.AddTransient<IRepository<Person>, PersonRepository>();
+            services.AddTransient<IRepository<Artist>, ArtistRepository>();
+            services.AddTransient<IAccountControllerHelper, AccountControllerHelper>();
+            services.AddTransient<IAccountService, AccountService>();
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("MSSDB2"));

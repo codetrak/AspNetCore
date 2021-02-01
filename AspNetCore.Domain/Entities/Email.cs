@@ -10,7 +10,7 @@ namespace AspNetCore.Domain.Entities
         [Key]
         public int EntityID { get; set; }
         public string EmailAddress { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime ModifiedDate { get; set; } = DateTime.Now;
         public Person Person { get; set; }
     }
 }
