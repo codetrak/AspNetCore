@@ -13,12 +13,12 @@ namespace AspNetCore.Domain.Entities
     {
         public CatalogType()
         {
-            Catalogs = new HashSet<Catalog>();
+           // Catalogs = new HashSet<Catalog>();
         }
 
         [Key]
         public int CatalogTypeID { get; set; }
         public string CatalogTypeName { get; set; }
-        public ICollection<Catalog> Catalogs { get; set; }
+        public Catalog Catalog { get; set; }
     }
 }

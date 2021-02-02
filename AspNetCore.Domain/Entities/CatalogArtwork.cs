@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,6 +15,9 @@ namespace AspNetCore.Domain.Entities
         [Key]
         public int CatalogID { get; set; }
         public byte[] ArtWork { get; set; }
+        public string OriginalName { get; set; }
+        public string AssignedName { get; set; }
+        public string Extension { get; set; }
         public Catalog Catalog { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace AspNetCore.Infrastructure.Repositories
         {
             return context.Catalogs
                 .Include(d => d.CatalogDescription)
-                .Include(a => a.CatalogArtwork).ToList();
+                .Include(a => a.CatalogArtwork).DefaultIfEmpty().ToList();
         }
     }
 }

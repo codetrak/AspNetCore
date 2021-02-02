@@ -84,21 +84,27 @@ namespace AspNetCore.Data.Context
             {
                 entity.HasOne(p => p.Artist)
                       .WithMany(p => p.Catalogs)
-                      .HasForeignKey(f => f.CatalogID);
+                      .HasForeignKey(f => f.ArtistID);
 
                 entity.HasOne(p => p.CatalogType)
-                      .WithMany(p => p.Catalogs)
-                      .HasForeignKey(f => f.CatalogTypeID);
-
-                entity.HasOne(p => p.CatalogArtwork)
                       .WithOne(p => p.Catalog)
-                      .HasForeignKey<Catalog>(f => f.CatalogID);
+                      .HasForeignKey<Catalog>(f => f.CatalogTypeID);
 
-                entity.HasOne(p => p.CatalogDescription)
-                      .WithOne(p => p.Catalog)
-                      .HasForeignKey<Catalog>(f => f.CatalogID);
             });
 
+            modelBuilder.Entity<CatalogArtwork>(entity =>
+            {
+                entity.HasOne(p => p.Catalog)
+                      .WithOne(p => p.CatalogArtwork)
+                      .HasForeignKey<CatalogArtwork>(f => f.CatalogID);
+            });
+
+            modelBuilder.Entity<CatalogDescription>(entity =>
+            {
+                entity.HasOne(p => p.Catalog)
+                      .WithOne(p => p.CatalogDescription)
+                      .HasForeignKey<CatalogDescription>(f => f.CatalogID);
+            });
 
         }
     }
